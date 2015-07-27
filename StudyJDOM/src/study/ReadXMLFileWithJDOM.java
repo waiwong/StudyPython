@@ -3,13 +3,8 @@ package study;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Date;
-import java.util.Formatter;
 
 import org.jdom2.Attribute;
 import org.jdom2.Comment;
@@ -25,12 +20,11 @@ import util.windowsOS.WinUtil;
 public class ReadXMLFileWithJDOM {
 	
 	public static void main(String[] args) {
-		String strPath = new StringBuffer(System.getProperty("user.dir"))
-				.append(File.separator).append("src").toString();
+		String strPath = new StringBuffer(System.getProperty("user.dir")).append(File.separator)
+				.append("src").toString();
 		
 		System.out.println(strPath);
-		List<String> lstFile = (new WinUtil()).listFilesForFolderByExt(
-				new File(strPath), ".xml");
+		List<String> lstFile = (new WinUtil()).listFilesForFolderByExt(new File(strPath), ".xml");
 		for (String xmlFilePath : lstFile) {
 			System.out.println(xmlFilePath);
 			
@@ -49,30 +43,26 @@ public class ReadXMLFileWithJDOM {
 							attr.setValue(attr.getValue() + "_1");
 						}
 						
-						System.out.println(String.format("%s:%s",
-								attr.getName(), attr.getValue()));
+						System.out.println(String.format("%s:%s", attr.getName(), attr.getValue()));
 					}
 					
 					for (Element itmChild : item.getChildren()) {
-						System.out.println(String.format("%s:%s -> Text:%s",
-								itmChild.getName(), itmChild.getValue(),
-								itmChild.getTextTrim()));
+						System.out.println(String.format("%s:%s -> Text:%s", itmChild.getName(),
+								itmChild.getValue(), itmChild.getTextTrim()));
 					}
 					
 					if (item.getChildren().size() > 0) {
 						Date currentDate = new Date();
 						if (item.getChild("age") == null) {
 							Element age = new Element("age").setText("28");
-							age.setAttribute("addTime",
-									String.format("%tc%n", currentDate));
+							age.setAttribute("addTime", String.format("%tc%n", currentDate));
 							item.addContent(age);
 						}
 						
 						Element eleTime = item.getChild("UpdateTime");
 						
 						if (eleTime == null) {
-							eleTime = new Element("UpdateTime").setText(String
-									.format("%tc", currentDate));
+							eleTime = new Element("UpdateTime").setText(String.format("%tc", currentDate));
 							item.addContent(eleTime);
 						} else {
 							eleTime.setText(String.format("%tc", currentDate));

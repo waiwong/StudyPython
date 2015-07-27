@@ -10,7 +10,7 @@ import java.util.List;
 
 public class WinUtil {
 	
-	public boolean createDir(String dirName) {
+	public boolean createDirectory(String dirName) {
 		boolean rslt = false;
 		File dir = new File(dirName);
 		if (!dir.exists()) {
@@ -34,8 +34,7 @@ public class WinUtil {
 		if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
 			System.err.println("Sorry, Windows only!");
 		} else {
-			File desktopDir = new File(System.getProperty("user.home"),
-					"Desktop");
+			File desktopDir = new File(System.getProperty("user.home"), "Desktop");
 			if (desktopDir.exists())
 				rslt = desktopDir.getPath();
 		}
@@ -49,8 +48,8 @@ public class WinUtil {
 		
 		String[] files = folder.list(filter);
 		for (String file : files) {
-			String temp = new StringBuffer(folder.getAbsolutePath())
-					.append(File.separator).append(file).toString();
+			String temp = new StringBuffer(folder.getAbsolutePath()).append(File.separator).append(file)
+					.toString();
 			System.out.println("file : " + temp);
 			lstRslt.add(temp);
 		}
@@ -64,14 +63,12 @@ public class WinUtil {
 		
 		for (File fileEntry : dirs) {
 			if (fileEntry.isDirectory()) {
-				System.out.println("Reading files under the folder "
-						+ fileEntry.getAbsolutePath());
+				System.out.println("Reading files under the folder " + fileEntry.getAbsolutePath());
 				lstRslt.addAll(listFilesForFolderByExt(fileEntry, fileExt));
 			} else {
 				if (fileEntry.isFile()) {
-					String tmpName = fileEntry.getName();
-					System.out.println("File= " + folder.getAbsolutePath()
-							+ "\\" + fileEntry.getName());
+					// String tmpName = fileEntry.getName();
+					System.out.println("File= " + folder.getAbsolutePath() + "\\" + fileEntry.getName());
 					// lstRslt.add(tmpName);
 				}
 			}
@@ -82,12 +79,12 @@ public class WinUtil {
 	
 	public List<String> listFilesForFolder(File folder) {
 		
-		File[] files = folder.listFiles(new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return file.isFile();
-			}
-		});
+		// File[] files = folder.listFiles(new FileFilter() {
+		// @Override
+		// public boolean accept(File file) {
+		// return file.isFile();
+		// }
+		// });
 		
 		List<String> lstRslt = new ArrayList<String>();
 		// List<File> filesInFolder = Files.walk(Paths.get("/path/to/folder"))
@@ -102,8 +99,7 @@ public class WinUtil {
 			} else {
 				if (fileEntry.isFile()) {
 					tmpName = fileEntry.getName();
-					System.out.println("File= " + folder.getAbsolutePath()
-							+ "\\" + fileEntry.getName());
+					System.out.println("File= " + folder.getAbsolutePath() + "\\" + fileEntry.getName());
 					lstRslt.add(tmpName);
 				}
 			}
