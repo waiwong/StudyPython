@@ -42,8 +42,6 @@ target/
 ehthumbs.db
 Thumbs.db
 # IDE (eclipse) related files#
-.classpath
-.project
 .settings
 .idea
 .metadata
