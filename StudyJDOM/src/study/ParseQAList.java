@@ -71,7 +71,7 @@ public class ParseQAList {
 		
 		for (Element itmChild : eleItem.getChildren()) {
 			List<Element> lstChildren = itmChild.getChildren();
-			if (lstChildren.size() == 1) {
+			if (lstChildren.size() == 0) {
 				System.out.println(String.format("%s:%s -> Text:%s", itmChild.getName(), itmChild.getValue(),
 						itmChild.getTextTrim()));
 			} else {

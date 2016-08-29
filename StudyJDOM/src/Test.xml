@@ -14,13 +14,14 @@
   <vitamins>
     <a>0</a>
     <c>0</c>
-    <age addTime="Fri Jul 24 17:18:24 CST 2015&#xD;&#xA;">28</age>
-    <UpdateTime>Fri Jul 24 17:18:24 CST 2015</UpdateTime>
+    <age addTime="Fri Jul 24 17:18:24 CST 2015">28</age>
+    <UpdateTime>Wed Jul 29 14:05:08 CST 2015</UpdateTime>
   </vitamins>
   <minerals>
     <ca>0</ca>
     <fe>0</fe>
-    <age addTime="Fri Jul 24 17:18:24 CST 2015&#xD;&#xA;">28</age>
-    <UpdateTime>Fri Jul 24 17:18:24 CST 2015</UpdateTime>
+    <age addTime="Fri Jul 24 17:18:24 CST 2015">28</age>
+    <UpdateTime>Wed Jul 29 14:05:20 CST 2015</UpdateTime>
   </minerals>
+  <!--Test for add Comment-->
 </food>
