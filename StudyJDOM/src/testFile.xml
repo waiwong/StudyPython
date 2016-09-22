@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <company>
-  <employee id="10_1">
-    <name>
-      <firstname>Jeremy</firstname>
-      <lastname>Harley</lastname>
-    </name>
+  <employee id="10">
+    <firstname>Jeremy</firstname>
+    <lastname>Harley</lastname>
     <email>james@example.org</email>
     <department>Human Resources</department>
     <salary>2000000</salary>
     <address>34 Stanley St.?</address>
-    <age addTime="2015-07-29 15:08:33">28</age>
-    <updateTime>2015-07-29 15:08:33</updateTime>
+    <age addTime="Fri Jul 24 17:08:10 CST 2015&#xD;&#xA;">28</age>
+    <UpdateTime>Fri Jul 24 17:18:24 CST 2015</UpdateTime>
   </employee>
-  <employee id="2_1">
-    <name>
-      <firstname>John</firstname>
-      <lastname>May</lastname>
-    </name>
+  <employee id="2">
+    <firstname>John</firstname>
+    <lastname>May</lastname>
     <email>john@example.org</email>
     <department>Logistics</department>
     <salary>400</salary>
     <address>123 Stanley St.</address>
-    <age addTime="2015-07-29 15:08:33">28</age>
-    <updateTime>2015-07-29 15:08:33</updateTime>
+    <age addTime="Fri Jul 24 17:08:10 CST 2015&#xD;&#xA;">28</age>
+    <UpdateTime>Fri Jul 24 17:18:24 CST 2015</UpdateTime>
   </employee>
   <!--Test for add Comment-->
 </company>
