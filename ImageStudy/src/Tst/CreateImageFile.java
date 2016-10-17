@@ -22,11 +22,14 @@ public class CreateImageFile {
 	BufferedImage image;
 
 	public void graphicsGeneration(String str, String fontPath, String imgurl) throws Exception {
-
 		File file = new File(fontPath);
-		FileInputStream aixing = new FileInputStream(file);
-		Font font = Font.createFont(Font.TRUETYPE_FONT, aixing);
-		Font dynamicFontPt = font.deriveFont(95f);
+//		Font dynamicFontPt = new Font("宋体", Font.TRUETYPE_FONT, 180);
+		Font dynamicFontPt = new Font("宋体", Font.PLAIN, 180);
+		if (file.exists()) {
+			FileInputStream aixing = new FileInputStream(file);
+			Font font = Font.createFont(Font.TRUETYPE_FONT, aixing);
+			dynamicFontPt = font.deriveFont(180f);
+		}
 
 		Rectangle2D r = dynamicFontPt.getStringBounds(str,
 				new FontRenderContext(AffineTransform.getScaleInstance(1, 1), false, false));
@@ -83,10 +86,13 @@ public class CreateImageFile {
 				for (char ch : strLine.toCharArray()) {
 					String str = String.valueOf(ch);
 					System.out.println(str);
-					cg.graphicsGeneration(str, strFolder + File.separator + "启功字体繁体.ttf",
-							outputFolder + File.separator + String.valueOf(indexName) + "0.jpg");
+					// cg.graphicsGeneration(str, strFolder + File.separator +
+					// "启功字体繁体.ttf",
+					// outputFolder + File.separator + String.valueOf(indexName)
+					// + "0.jpg");
 					cg.graphicsGeneration(str, strFolder + File.separator + "启功字体简体.TTF",
 							outputFolder + File.separator + String.valueOf(indexName) + "1.jpg");
+					cg.graphicsGeneration(str, "", outputFolder + File.separator + String.valueOf(indexName) + "3.jpg");
 					indexName++;
 				}
 			}
