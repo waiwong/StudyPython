@@ -21,24 +21,27 @@ import javax.imageio.ImageIO;
 public class CreateImageFile {
 	BufferedImage image;
 
-	public void graphicsGeneration(String str, String fontPath, String imgurl) throws Exception {
+	public void graphicsGeneration(String str, String fontPath, String imgurl, int fontSize) throws Exception {
 		File file = new File(fontPath);
-//		Font dynamicFontPt = new Font("宋体", Font.TRUETYPE_FONT, 180);
-		Font dynamicFontPt = new Font("宋体", Font.PLAIN, 180);
+		// Font dynamicFontPt = new Font("宋体", Font.TRUETYPE_FONT, 180);
+		Font dynamicFontPt = new Font("宋体", Font.PLAIN, fontSize);
 		if (file.exists()) {
 			FileInputStream aixing = new FileInputStream(file);
-			Font font = Font.createFont(Font.TRUETYPE_FONT, aixing);
-			dynamicFontPt = font.deriveFont(180f);
+			Font font = Font.createFont(Font.TRUETYPE_FONT, aixing);			
+			dynamicFontPt = font.deriveFont((float)fontSize);
 		}
 
 		Rectangle2D r = dynamicFontPt.getStringBounds(str,
 				new FontRenderContext(AffineTransform.getScaleInstance(1, 1), false, false));
 
-		int unitHeight = (int) Math.floor(r.getHeight());
-		int width = (int) Math.round(r.getWidth()) + 8;
+		// int unitHeight = (int) Math.floor(r.getHeight());
+		// int width = (int) Math.round(r.getWidth()) + 8;
+		//
+		// int height = unitHeight + 5;
+		System.out.println(String.format("FontSize:%d;GetHeight:%f;GetWidth:%f",fontSize, r.getHeight(), r.getWidth()));
 
-		int height = unitHeight + 5;
-
+		int width = 255;
+		int height = 255;
 		// image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 		Graphics graphics = image.getGraphics();
@@ -46,13 +49,15 @@ public class CreateImageFile {
 		graphics.setColor(Color.white);
 		graphics.fillRect(0, 0, width, height);
 		graphics.setColor(Color.black);
+		//graphics.drawRect(0, 0, width, height);
 
 		graphics.setFont(dynamicFontPt);
-
-		graphics.drawString(str, 5, dynamicFontPt.getSize() + 10);
+		// graphics.drawString(str, 0, dynamicFontPt.getSize() + 10);
+		graphics.drawString(str, 0 , dynamicFontPt.getSize()-40);	
+        
 		graphics.dispose();
 		FileOutputStream fos = new FileOutputStream(imgurl);
-		ImageIO.write(image, "png", fos);
+		ImageIO.write(image, "PNG", fos);
 	}
 
 	public static void main(String[] args) {
@@ -86,13 +91,21 @@ public class CreateImageFile {
 				for (char ch : strLine.toCharArray()) {
 					String str = String.valueOf(ch);
 					System.out.println(str);
+					String punctutations = ".,:; ：，。";
+					if(punctutations.contains(str))
+						continue;
 					// cg.graphicsGeneration(str, strFolder + File.separator +
 					// "启功字体繁体.ttf",
 					// outputFolder + File.separator + String.valueOf(indexName)
 					// + "0.jpg");
-					cg.graphicsGeneration(str, strFolder + File.separator + "启功字体简体.TTF",
-							outputFolder + File.separator + String.valueOf(indexName) + "1.jpg");
-					cg.graphicsGeneration(str, "", outputFolder + File.separator + String.valueOf(indexName) + "3.jpg");
+					for (int fontsize = 250; fontsize <= 250; fontsize += 10) {
+						cg.graphicsGeneration(str, strFolder + File.separator + "启功字体简体.TTF",
+								outputFolder + File.separator + String.format("%d_1_%d.png", indexName, fontsize),
+								fontsize);
+						cg.graphicsGeneration(str, "",
+								outputFolder + File.separator + String.format("%d_3_%d.png", indexName, fontsize),
+								fontsize);
+					}
 					indexName++;
 				}
 			}
