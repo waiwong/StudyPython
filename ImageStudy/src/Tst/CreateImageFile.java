@@ -39,7 +39,7 @@ public class CreateImageFile {
 		// int width = Math.max(unitWidth, unitHeight);
 		int width = fontSize;
 		int height = width;
-		int adjustY = (int) Math.floor(r.getHeight() - height);
+		int adjustY = (int) Math.floor(r.getHeight() - height) - 1;
 		System.out.println(String.format("FontSize:%d;GetHeight:%f;GetWidth:%f;width:%d;height:%d;adjustY:%d", fontSize,
 				r.getHeight(), r.getWidth(), width, height, adjustY));
 
