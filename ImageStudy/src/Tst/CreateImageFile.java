@@ -13,6 +13,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +48,7 @@ public class CreateImageFile {
 				r.getHeight(), r.getWidth(), width, height, adjustY));
 
 		// image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+		image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
 		Graphics graphics = image.getGraphics();
 
 		graphics.setColor(Color.white);
@@ -69,7 +73,15 @@ public class CreateImageFile {
 			String desktopPath = System.getProperty("user.home") + "\\Desktop";
 			System.out.println("Desktop:" + desktopPath);
 			String outputFolder = strFolder + File.separator + "OutputPic";
-			(new File(outputFolder)).mkdirs();
+			File fiOutputFolder = new File(outputFolder);
+
+			for (File file : fiOutputFolder.listFiles())
+				if (!file.isDirectory())
+					file.delete();
+
+			if (!fiOutputFolder.exists())
+				fiOutputFolder.mkdirs();
+
 			System.out.println("Output folder:" + outputFolder);
 			String wordsFileName = strFolder + File.separator + "Words.txt";
 			System.out.println("wordsFileName folder:" + wordsFileName);
@@ -81,27 +93,40 @@ public class CreateImageFile {
 				e.printStackTrace();
 			}
 
+			List<String> lstGenerate = new ArrayList<>();
 			// list.forEach(System.out::println);
-			int indexName = 0;
+			int indexName = 1;
 			for (String strLine : list) {
 				System.out.println(strLine);
 				for (char ch : strLine.toCharArray()) {
 					String str = String.valueOf(ch);
 					System.out.println(str);
+					if (!isChinese(ch))
+						continue;
 					String punctutations = ".,:; ：，。? ";
 					if (punctutations.contains(str))
 						continue;
+					if (lstGenerate.contains(str))
+						continue;
+					lstGenerate.add(str);
 					// cg.graphicsGeneration(str, strFolder + File.separator +
 					// "启功字体繁体.ttf",
 					// outputFolder + File.separator + String.valueOf(indexName)
 					// + "0.jpg");
-					for (int fontsize = 20; fontsize <= 50; fontsize += 10) {
+					// for (int fontsize = 20; fontsize <= 50; fontsize += 10) {
+					for (int fontsize = 20; fontsize <= 20; fontsize += 10) {
+						String exportFileNameX = String.format("%d_10_%d.png", indexName, fontsize);
+						String exportFileNameY = String.format("%d_30_%d.png", indexName, fontsize);
+						// if indexName % 3 ==0, then as test
+						if (indexName % 5 == 0) {
+							exportFileNameX = String.format("%d_11_%d.png", indexName, fontsize);
+							exportFileNameY = String.format("%d_31_%d.png", indexName, fontsize);
+						}
+
 						cg.graphicsGeneration(str, strFolder + File.separator + "启功字体简体.TTF",
-								outputFolder + File.separator + String.format("%d_1_%d.png", indexName, fontsize),
-								fontsize);
-						cg.graphicsGeneration(str, "",
-								outputFolder + File.separator + String.format("%d_3_%d.png", indexName, fontsize),
-								fontsize);
+								outputFolder + File.separator + exportFileNameX, fontsize);
+
+						cg.graphicsGeneration(str, "", outputFolder + File.separator + exportFileNameY, fontsize);
 					}
 					indexName++;
 				}
@@ -113,4 +138,15 @@ public class CreateImageFile {
 		}
 	}
 
+	/**
+	 * check if Chinese character
+	 * 
+	 * @param a
+	 *            char
+	 * @return boolean
+	 */
+	public static boolean isChinese(char a) {
+		int v = (int) a;
+		return (v >= 19968 && v <= 171941);
+	}
 }
